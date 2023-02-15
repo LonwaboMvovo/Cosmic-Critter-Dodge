@@ -180,10 +180,12 @@ while True:
         screen.blit(player_stand, player_stand_rect)
         screen.blit(title, title_rect)
         screen.blit(instructions, instructions_rect)
+
     if not collision_sprite():
         # print("Game Over dud!!"
         player_score = (pygame.time.get_ticks() - start_time) // 100
         instructions = pixel_type_font.render(f"Score: {player_score}", False, (111,196,169))
         instructions_rect = instructions.get_rect(center = (400, 350))
+        game_active = False
     pygame.display.update()
     clock.tick(60)
