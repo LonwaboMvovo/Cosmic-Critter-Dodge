@@ -16,9 +16,9 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(midbottom = (169, 300))
         self.gravity = 0
 
-        self.jump_sound = pygame.mixer.Sound("audio/jump.mp3")
+        self.jump_sound = pygame.mixer.Sound("audio/jump.wav")
         self.jump_sound.set_volume(0.05)
-
+    
 
     def player_input(self):
         keys = pygame.key.get_pressed()
@@ -85,7 +85,7 @@ class Obstacle(pygame.sprite.Sprite):
     def destroy(self):
         if self.rect.x <= -100:
             self.kill()
-
+    
 
     def update(self):
         self.animation_state()
@@ -126,6 +126,7 @@ bg_music.play(loops = -1)
 sky_surf = pygame.image.load("graphics/Sky.png").convert()
 ground_surf = pygame.image.load("graphics/ground.png").convert()
 
+
 # Intro screen
 player_stand = pygame.image.load("graphics/Player/player_stand.png").convert_alpha()
 player_stand = pygame.transform.rotozoom(player_stand, 0, 2)
@@ -165,11 +166,11 @@ while True:
                 start_time = pygame.time.get_ticks()
 
     if game_active:
-        # draw and update all our elements in here
         screen.blit(sky_surf, (0, 0))
         screen.blit(ground_surf, (0, 300))
         display_score(start_time)
 
+        # New with class
         player.draw(screen)
         player.update() 
 
@@ -182,10 +183,10 @@ while True:
         screen.blit(instructions, instructions_rect)
 
     if not collision_sprite():
-        # print("Game Over dud!!"
         player_score = (pygame.time.get_ticks() - start_time) // 100
         instructions = pixel_type_font.render(f"Score: {player_score}", False, (111,196,169))
         instructions_rect = instructions.get_rect(center = (400, 350))
         game_active = False
+
     pygame.display.update()
     clock.tick(60)
